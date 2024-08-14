@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0">
+    <title>Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            box-sizing: border-box;
+        }
+        main {
+            width: 100%;
+            height: 90%;
+            position: fixed;
+            display: grid;
+            grid-template-rows: 8% 27% 10% 65%;
+        }
+        main .display {
+            display: grid;
+            grid-template-rows: 75% 25%;
+        }
+        main .up-display {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 3dvw;
+            font-weight: bold;
+            padding-right: 1dvw;
+        }
+        main .pre-pad {
+            display: grid;
+            grid-template-columns: 1fr 50% 1fr;
+            
+        }
+        main .pad {
+            display: grid;
+            grid-template-rows: repeat(5, 1fr);
+        }
+        main .pad-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        main .pad-column, main .pre-pad > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3dvw;
+            font-weight: bold;
+        }
+        main .symbol {  
+            font-size: 3dvw;
+            color: darkcyan;
+        }
+        main .equals {
+            background-color: darkcyan;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div align="center" style="font-size: 2dvw;">Calculator</div>
+        <div class="display">
+            <div class="up-display"></div>
+            <div class="result"></div>
+        </div>
+        <div class="pre-pad">
+            <div>History</div>
+            <div></div>
+            <button onclick="clearOne()" class="symbol">&#9003;</button>
+        </div>
+        <div class="pad">
+            <div class="pad-row">
+                <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol">C</button>
+                <button onclick="writeSymbol(this.id)" value="bracket" id="brackets" class="pad-column symbol">&#40;&#41;</button>
+                <button onclick="writeSymbol(this.id)" value="percent" id="percent" class="pad-column symbol">&#37;</button>
+                <button onclick="writeSymbol(this.id)" value="division" id="division" class="pad-column symbol">&#247;</button>
+            </div>
+            <div class="pad-row">
+                <button onclick="writeNumber(this.value)" value="7" id="seven" class="pad-column">7</button>
+                <button onclick="writeNumber(this.value)" value="8" id="eight" class="pad-column">8</button>
+                <button onclick="writeNumber(this.value)" value="9" id="nine" class="pad-column">9</button>
+                <button onclick="writeSymbol(this.id)" value="multiplication" id="multiplication" class="pad-column symbol">&times;</button>
+            </div>
+            <div class="pad-row">
+                <button onclick="writeNumber(this.value)" value="4" id="four" class="pad-column">4</button>
+                <button onclick="writeNumber(this.value)" value="5" id="five" class="pad-column">5</button>
+                <button onclick="writeNumber(this.value)" value="6" id="six" class="pad-column">6</button>
+                <button onclick="writeSymbol(this.id)" id="minus" value="minus" class="pad-column symbol">&minus;</button>
+            </div>
+            <div class="pad-row">
+                <button onclick="writeNumber(this.value)" value="1" id="one" class="pad-column">1</button>
+                <button onclick="writeNumber(this.value)" value="2" id="two" class="pad-column">2</button>
+                <button onclick="writeNumber(this.value)" value="3" id="three" class="pad-column">3</button>
+                <button onclick="writeSymbol(this.id)" value="plus" id="plus" class="pad-column symbol">&plus;</button>
+            </div>
+            <div class="pad-row">
+                <button onclick="writeSymbolPoint(this.id)" value="point" id="point" class="pad-column">&bull;</button>
+                <button onclick="writeNumber(this.value)" value="0" id="zero" class="pad-column">0</button>
+                <button value="pre-plus-minus" id="pre-plus-minus" class="pad-column">&plus; &sol; &minus;</button>
+                <button value="equals" id="equals" class="pad-column equals">&equals;</button>
+            </div>
+        </div>
+    </main>
+    <script defer>
+        const display = document.querySelector('.up-display');
+        const result = document.querySelector('.result');
+        const vals = ['(', ')', '%', '÷', '×', '-', '+', '.'];
+        const symtoval = {
+            'bracket-opening': '(',
+            'bracket-closing': ')',
+            'percent': '%',
+            'division': '÷',
+            'multiplication': '×',
+            'minus': '-',
+            'plus': '+',
+            'point': '.',
+            'equals': '='
+        }
+        var symbolsUsed = [];
+        var expression = [];
+        var hasSymbol = true;
+        var hasDot = false;
+        var hasBracket = 0;
+
+        function clearOne() {
+            alert(expression);
+            if (vals.indexOf(expression[expression.length - 1]) !== -1) {
+                hasSymbol = false;
+                expression.pop();
+            }
+            else {
+                expression[expression.length - 1] = expression[expression.length - 1].slice(0, -1);
+            }
+            display.innerHTML = display.innerHTML.slice(0, -1);
+        }
+        function clearScreen() {
+            expression = [];
+            display.innerHTML = '';
+            result.innerHTML = '';
+        }
+        function writeSymbol(symbol) {
+            if (!hasSymbol) {
+                expression.push(symtoval[symbol]);
+                symbolsUsed.push(symtoval[symbol]);
+                hasSymbol = true;
+                hasDot = false;
+                display.innerHTML += symtoval[symbol];
+            }
+        }
+        function writeSymbolPoint(symbol) {
+            if (!hasDot) {
+                expression[expression.length - 1] += symtoval[symbol];
+                hasDot = true;
+                display.innerHTML += symtoval[symbol];
+            }
+        }
+        function writeNumber(number) {
+            if (hasSymbol || vals.indexOf(expression[expression.length - 1]) !== -1) {
+                expression.push(number);
+            }
+            else if (expression[expression.length - 1].length < 15) {
+                expression[expression.length - 1] += number;
+                alert(expression[expression.length - 1].length)
+            }
+            else {
+                alert('Maximum number of digits reached');
+                return;
+            }
+            hasSymbol = false;
+            hasDot = false;
+            display.innerHTML += number;
+        }
+    </script>
+</body>
+</html>
