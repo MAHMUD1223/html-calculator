@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Calculator</title>
     <style>
         *{
@@ -62,7 +63,7 @@
 </head>
 <body>
     <main>
-        <div align="center" style="font-size: 2dvw;">Calculator <span style="color: red;">This web is in under development</span> </div>
+        <div align="center" style="font-size: 2dvw;">Calculator</div>
         <div class="display">
             <div class="up-display"></div>
             <div class="result"></div>
@@ -75,7 +76,7 @@
         <div class="pad">
             <div class="pad-row">
                 <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol">C</button>
-                <button onclick="writeSymbol(this.id)" value="bracket" id="brackets" class="pad-column symbol">&#40;&#41;</button>
+                <button onclick="writeBracket()" value="bracket" id="brackets" class="pad-column symbol">&#40;&#41;</button>
                 <button onclick="writeSymbol(this.id)" value="percent" id="percent" class="pad-column symbol">&#37;</button>
                 <button onclick="writeSymbol(this.id)" value="division" id="division" class="pad-column symbol">&#247;</button>
             </div>
@@ -124,23 +125,36 @@
         var expression = [];
         var hasSymbol = true;
         var hasDot = false;
-        var hasBracket = 0;
+        var totalBrackets = 0;
+        var bracketCount = 0;
 
         function clearOne() {
             alert(expression);
-            if (vals.indexOf(expression[expression.length - 1]) !== -1) {
+            if (expression[expression.length - 1].length === 1 ) {
                 hasSymbol = false;
                 expression.pop();
+                if (expression[expression.length - 1] === '(' ) {
+                    bracketCount--;
+                    totalBrackets--;
+                }
+                else if (expression[expression.length - 1] === ')' ) {
+                    bracketCount++;
+                }
+                else if (expression[expression.length - 1].includes('.')) {
+                    hasDot = true;
+                }
             }
             else {
                 expression[expression.length - 1] = expression[expression.length - 1].slice(0, -1);
             }
-            display.innerHTML = display.innerHTML.slice(0, -1);
+            // display.innerHTML = display.innerHTML.slice(0, -1);
+            updateDisplay();
         }
         function clearScreen() {
             expression = [];
-            display.innerHTML = '';
+            /// display.innerHTML = '';
             result.innerHTML = '';
+            updateDisplay();
         }
         function writeSymbol(symbol) {
             if (!hasSymbol) {
@@ -148,31 +162,55 @@
                 symbolsUsed.push(symtoval[symbol]);
                 hasSymbol = true;
                 hasDot = false;
-                display.innerHTML += symtoval[symbol];
+                // display.innerHTML += symtoval[symbol];
             }
+            updateDisplay();
+        }
+        function writeBracket() {
+            if (hasSymbol) {
+                expression.push('(');
+                symbolsUsed.push('(');
+                bracketCount++;
+                totalBrackets++;
+                // display.innerHTML += '(';
+            }
+            else if (!hasSymbol && bracketCount > 0) {
+                expression.push(')');
+                symbolsUsed.push(')');
+                bracketCount--;
+                // display.innerHTML += ')';
+            }
+            updateDisplay();
         }
         function writeSymbolPoint(symbol) {
             if (!hasDot) {
                 expression[expression.length - 1] += symtoval[symbol];
                 hasDot = true;
-                display.innerHTML += symtoval[symbol];
+                // display.innerHTML += symtoval[symbol];
             }
+            updateDisplay();
         }
         function writeNumber(number) {
             if (hasSymbol || vals.indexOf(expression[expression.length - 1]) !== -1) {
                 expression.push(number);
+                hasDot = false;
             }
             else if (expression[expression.length - 1].length < 15) {
                 expression[expression.length - 1] += number;
-                alert(expression[expression.length - 1].length)
             }
             else {
                 alert('Maximum number of digits reached');
                 return;
             }
             hasSymbol = false;
-            hasDot = false;
-            display.innerHTML += number;
+            // display.innerHTML += number;
+            updateDisplay();
+        }
+        function updateDisplay() {
+            display.innerHTML = '';
+            for (let i = 0; i < expression.length; i++) {
+                display.innerHTML += expression[i];
+            }
         }
     </script>
 </body>
