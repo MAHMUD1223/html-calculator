@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#000">
-    <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/webp" href="./zcalculator-img.webp">
     <link rel="apple-touch-icon" href="./zcalculator-img.webp">
     <link rel="stylesheet" href="style.css">
@@ -13,20 +13,34 @@
 <body>
     <main>
         <nav>
-            <img id="logo" src="./zcalculator-img.webp">
+            <div class="nav-img">
+                <img id="logo" src="./zcalculator-img.webp">
+            </div>
+            
             <h4>Calculator</h4>
+            
             <div>
+                <select name="theme" id="theme">Theme
+                    <option value="normal">Normal</option>
+                    <option value="95">95</option>
+                </select>
             </div>
         </nav>
+
+
         <div class="display">
             <div class="up-display"></div>
             <div class="result"></div>
         </div>
+
+
         <div class="pre-pad">
             <div>History</div>
             <div></div>
             <button onclick="clearOne()" class="symbol">&#9003;</button>
         </div>
+
+
         <div class="pad">
             <div class="pad-row">
                 <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol">C</button>
@@ -59,6 +73,8 @@
                 <button value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
         </div>
+
+
     </main>
     <script src="main.js" defer></script>
 </body>
