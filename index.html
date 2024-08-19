@@ -2,68 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#000">
     <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <link rel="icon" type="image/webp" href="./zcalculator-img.webp">
+    <link rel="apple-touch-icon" href="./zcalculator-img.webp">
+    <link rel="stylesheet" href="style.css">
     <title>Calculator</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            user-select: none;
-            box-sizing: border-box;
-        }
-        main {
-            width: 100%;
-            height: 90%;
-            position: fixed;
-            display: grid;
-            grid-template-rows: 8% 27% 10% 65%;
-        }
-        main .display {
-            display: grid;
-            grid-template-rows: 75% 25%;
-        }
-        main .up-display {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 3dvw;
-            font-weight: bold;
-            padding-right: 1dvw;
-        }
-        main .pre-pad {
-            display: grid;
-            grid-template-columns: 1fr 50% 1fr;
-            
-        }
-        main .pad {
-            display: grid;
-            grid-template-rows: repeat(5, 1fr);
-        }
-        main .pad-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-        }
-        main .pad-column, main .pre-pad > div {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3dvw;
-            font-weight: bold;
-        }
-        main .symbol {  
-            font-size: 3dvw;
-            color: darkcyan;
-        }
-        main .equals {
-            background-color: darkcyan;
-            color: white;
-        }
-    </style>
 </head>
 <body>
     <main>
-        <div align="center" style="font-size: 2dvw;">Calculator</div>
+        <nav>
+            <img id="logo" src="./zcalculator-img.webp">
+            <h4>Calculator</h4>
+            <div>
+            </div>
+        </nav>
         <div class="display">
             <div class="up-display"></div>
             <div class="result"></div>
@@ -106,112 +60,6 @@
             </div>
         </div>
     </main>
-    <script defer>
-        const display = document.querySelector('.up-display');
-        const result = document.querySelector('.result');
-        const vals = ['(', ')', '%', '÷', '×', '-', '+', '.'];
-        const symtoval = {
-            'bracket-opening': '(',
-            'bracket-closing': ')',
-            'percent': '%',
-            'division': '÷',
-            'multiplication': '×',
-            'minus': '-',
-            'plus': '+',
-            'point': '.',
-            'equals': '='
-        }
-        var symbolsUsed = [];
-        var expression = [];
-        var hasSymbol = true;
-        var hasDot = false;
-        var totalBrackets = 0;
-        var bracketCount = 0;
-
-        function clearOne() {
-            alert(expression);
-            if (expression[expression.length - 1].length === 1 ) {
-                hasSymbol = false;
-                expression.pop();
-                if (expression[expression.length - 1] === '(' ) {
-                    bracketCount--;
-                    totalBrackets--;
-                }
-                else if (expression[expression.length - 1] === ')' ) {
-                    bracketCount++;
-                }
-                else if (expression[expression.length - 1].includes('.')) {
-                    hasDot = true;
-                }
-            }
-            else {
-                expression[expression.length - 1] = expression[expression.length - 1].slice(0, -1);
-            }
-            // display.innerHTML = display.innerHTML.slice(0, -1);
-            updateDisplay();
-        }
-        function clearScreen() {
-            expression = [];
-            /// display.innerHTML = '';
-            result.innerHTML = '';
-            updateDisplay();
-        }
-        function writeSymbol(symbol) {
-            if (!hasSymbol) {
-                expression.push(symtoval[symbol]);
-                symbolsUsed.push(symtoval[symbol]);
-                hasSymbol = true;
-                hasDot = false;
-                // display.innerHTML += symtoval[symbol];
-            }
-            updateDisplay();
-        }
-        function writeBracket() {
-            if (hasSymbol) {
-                expression.push('(');
-                symbolsUsed.push('(');
-                bracketCount++;
-                totalBrackets++;
-                // display.innerHTML += '(';
-            }
-            else if (!hasSymbol && bracketCount > 0) {
-                expression.push(')');
-                symbolsUsed.push(')');
-                bracketCount--;
-                // display.innerHTML += ')';
-            }
-            updateDisplay();
-        }
-        function writeSymbolPoint(symbol) {
-            if (!hasDot) {
-                expression[expression.length - 1] += symtoval[symbol];
-                hasDot = true;
-                // display.innerHTML += symtoval[symbol];
-            }
-            updateDisplay();
-        }
-        function writeNumber(number) {
-            if (hasSymbol || vals.indexOf(expression[expression.length - 1]) !== -1) {
-                expression.push(number);
-                hasDot = false;
-            }
-            else if (expression[expression.length - 1].length < 15) {
-                expression[expression.length - 1] += number;
-            }
-            else {
-                alert('Maximum number of digits reached');
-                return;
-            }
-            hasSymbol = false;
-            // display.innerHTML += number;
-            updateDisplay();
-        }
-        function updateDisplay() {
-            display.innerHTML = '';
-            for (let i = 0; i < expression.length; i++) {
-                display.innerHTML += expression[i];
-            }
-        }
-    </script>
+    <script src="main.js" defer></script>
 </body>
 </html>
