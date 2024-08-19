@@ -20,7 +20,7 @@
             <h4>Calculator</h4>
             
             <div>
-                <select name="theme" id="theme">Theme
+                <select name="theme" id="theme">
                     <option value="normal">Normal</option>
                     <option value="95">95</option>
                 </select>
@@ -69,8 +69,8 @@
             <div class="pad-row">
                 <button onclick="writeSymbolPoint(this.id)" value="point" id="point" class="pad-column">&bull;</button>
                 <button onclick="writeNumber(this.value)" value="0" id="zero" class="pad-column">0</button>
-                <button value="pre-plus-minus" id="pre-plus-minus" class="pad-column">&plus; &sol; &minus;</button>
-                <button value="equals" id="equals" class="pad-column equals">&equals;</button>
+                <button onclick="writePlusMinus()" value="pre-plus-minus" id="pre-plus-minus" class="pad-column">&plus; &sol; &minus;</button>
+                <button onclick="calculate()" value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
         </div>
 

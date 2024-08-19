@@ -52,31 +52,43 @@ function clearScreen() {
     expression = [];
     /// display.innerHTML = '';
     result.innerHTML = '';
+    hasSymbol = true;
+    hasDot = false;
+    bracketCount = 0;
     updateDisplay();
 }
 function writeSymbol(symbol) {
-    if (!hasSymbol) {
+    if (!hasSymbol && symbol == "percent") {
+        expression.push(symtoval[symbol]);
+        hasSymbol = false;
+        hasDot = false;
+        // display.innerHTML += symtoval[symbol];
+    } else if (!hasSymbol) {
         expression.push(symtoval[symbol]);
         hasSymbol = true;
         hasDot = false;
         // display.innerHTML += symtoval[symbol];
+    } else if (hasSymbol && expression.length > 1) {
+        expression.splice(expression.length-1, 1, symtoval[symbol]);
+        hasSymbol = true;
     }
     updateDisplay();
 }
 function writeBracket() {
-    // this has bug and we are gonna fix it
     if (hasSymbol) {
-        if(expression.length > 0 && vals.indexOf(expression[(expression.length - 1) ? (expression.length - 1):0]) == -1) {
-            expression.push(symtoval['multiplication']);
-        }
         expression.push('(');
         bracketCount++;
         // display.innerHTML += '(';
     }
-    else if (!hasSymbol && bracketCount > 0) {
+    else if (bracketCount > 0) {
         expression.push(')');
         bracketCount--;
         // display.innerHTML += ')';
+    }
+    else if (!hasSymbol){
+        expression.push(symtoval['multiplication'])
+        expression.push("(")
+        bracketCount++;
     }
     updateDisplay();
 }
@@ -88,15 +100,34 @@ function writeSymbolPoint(symbol) {
     }
     updateDisplay();
 }
+function writePlusMinus() {
+    if (expression.length == 0) {
+        return;
+    } else if (expression[expression.length - 2]=="-" && expression[expression.length-3]=="(") {
+        expression.splice(expression.length-3, 2);
+        bracketCount--;
+    } else if (expression[expression.length - 1] == "-" && expression[expression.length - 2] == "(") {
+        expression.splice(expression.length-2, 2);
+        bracketCount--;
+    } else if (!hasSymbol){
+        expression.splice(expression.length-1, 0, "(", "-");
+        bracketCount++;
+    }
+    updateDisplay();
+}
 function writeNumber(number) {
-    if (hasSymbol) {
+    if (expression[expression.length - 1] == '%') {
+        expression.splice(expression.length , 0, symtoval['multiplication'], number);
+    } else if (hasSymbol) {
         expression.push(number);
         hasDot = false;
-    }
-    else if (expression[(expression.length - 1) ? (expression.length - 1):0].length < 15) {
+    } else if (number == "0" && expression[(expression.length - 1) ? (expression.length - 1):0]=='0' && expression[(expression.length - 1) ? (expression.length - 1):0].length < 15) {
+        return;
+    } else if (expression[(expression.length - 1) ? (expression.length - 1):0] == "0" && expression[(expression.length - 1) ? (expression.length - 1):0].length < 15){
+        expression[(expression.length - 1) ? (expression.length - 1):0] = number;
+    } else if (expression[(expression.length - 1) ? (expression.length - 1):0].length < 15) {
         expression[(expression.length - 1) ? (expression.length - 1):0] += number;
-    }
-    else if (expression[(expression.length - 1) ? (expression.length - 1):0].length >= 15) {
+    } else if (expression[(expression.length - 1) ? (expression.length - 1):0].length >= 15) {
         alert('Maximum number of digits reached');
         return;
     }
@@ -106,5 +137,29 @@ function writeNumber(number) {
 }
 function updateDisplay() {
     display.innerHTML = expression.join('');
-    alert(expression);
+    // alert(expression);
+}
+function calculate() {
+    // need to figuer out % in js eval
+    let expressionConverter = {
+        '×': '*',
+        '÷': '/',
+        '+': '+',
+        '-': '-',
+        '%': '/100'
+    }
+    while (bracketCount != 0) {
+        expression.push(')');
+        bracketCount--;
+        updateDisplay();
+    }
+    let expressionStr = "";
+    expression.forEach( (value, index) => {
+        if (expressionConverter[value]) {
+            expressionStr += expressionConverter[value];
+        } else {
+            expressionStr += value;
+        }
+    });
+    result.innerHTML = eval(expressionStr);
 }
