@@ -1,6 +1,6 @@
 const display = document.querySelector('.up-display');
 const result = document.querySelector('.result');
-const vals = ['(', ')', '%', '÷', '×', '-', '+', '.'];
+const vals = ['(', ')', '÷', '×', '-', '+', '.'];
 const symtoval = {
     'bracket-opening': '(',
     'bracket-closing': ')',
@@ -30,7 +30,9 @@ function clearOne() {
         expression.pop();
         if(expression.length == 0){
             updateDisplay();
-            // display.innerHTML = "0"
+            hasSymbol = true;
+            hasDot = false;
+            bracketCount = 0;
             return;
         }
 
@@ -45,12 +47,10 @@ function clearOne() {
     else {
         expression[expression.length - 1] = expression[expression.length - 1].slice(0, -1);
     }
-    // display.innerHTML = display.innerHTML.slice(0, -1);
     updateDisplay();
 }
 function clearScreen() {
     expression = [];
-    /// display.innerHTML = '';
     result.innerHTML = '';
     hasSymbol = true;
     hasDot = false;
@@ -62,12 +62,10 @@ function writeSymbol(symbol) {
         expression.push(symtoval[symbol]);
         hasSymbol = false;
         hasDot = false;
-        // display.innerHTML += symtoval[symbol];
     } else if (!hasSymbol) {
         expression.push(symtoval[symbol]);
         hasSymbol = true;
         hasDot = false;
-        // display.innerHTML += symtoval[symbol];
     } else if (hasSymbol && expression.length > 1) {
         expression.splice(expression.length-1, 1, symtoval[symbol]);
         hasSymbol = true;
@@ -78,12 +76,10 @@ function writeBracket() {
     if (hasSymbol) {
         expression.push('(');
         bracketCount++;
-        // display.innerHTML += '(';
     }
     else if (bracketCount > 0) {
         expression.push(')');
         bracketCount--;
-        // display.innerHTML += ')';
     }
     else if (!hasSymbol){
         expression.push(symtoval['multiplication'])
@@ -96,7 +92,6 @@ function writeSymbolPoint(symbol) {
     if (!hasDot) {
         expression[expression.length - 1] += symtoval[symbol];
         hasDot = true;
-        // display.innerHTML += symtoval[symbol];
     }
     updateDisplay();
 }
@@ -132,21 +127,20 @@ function writeNumber(number) {
         return;
     }
     hasSymbol = false;
-    // display.innerHTML += number;
     updateDisplay();
 }
 function updateDisplay() {
     display.innerHTML = expression.join('');
+    calculate();
     // alert(expression);
 }
 function calculate() {
-    // need to figuer out % in js eval
+    result.style.color = "gray";
     let expressionConverter = {
         '×': '*',
         '÷': '/',
         '+': '+',
-        '-': '-',
-        '%': '/100'
+        '-': '-'
     }
     while (bracketCount != 0) {
         expression.push(')');
@@ -155,11 +149,18 @@ function calculate() {
     }
     let expressionStr = "";
     expression.forEach( (value, index) => {
-        if (expressionConverter[value]) {
+        if (value == '%') {
+            expressionStr += "/100";
+            if (["+", "-"].indexOf(expression[index - 2]) !== -1) {
+                expressionStr += "*" + expression[index - 3];
+            } else if (["+", "-"].indexOf(expression[index + 1] !== -1)) {
+                expressionStr += "*" + expression[index + 2];
+            }
+        } else if (expressionConverter[value]) {
             expressionStr += expressionConverter[value];
         } else {
             expressionStr += value;
         }
     });
-    result.innerHTML = eval(expressionStr);
+    result.innerHTML = eval(expressionStr) != undefined ? eval(expressionStr) : '';
 }

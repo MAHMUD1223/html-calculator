@@ -70,7 +70,7 @@
                 <button onclick="writeSymbolPoint(this.id)" value="point" id="point" class="pad-column">&bull;</button>
                 <button onclick="writeNumber(this.value)" value="0" id="zero" class="pad-column">0</button>
                 <button onclick="writePlusMinus()" value="pre-plus-minus" id="pre-plus-minus" class="pad-column">&plus; &sol; &minus;</button>
-                <button onclick="calculate()" value="equals" id="equals" class="pad-column equals">&equals;</button>
+                <button onclick="calculate(); let result=document.querySelector('.result'); result.style.color='darkcyan'; result.style.fontSize='2.5dvw';" value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
         </div>
 
