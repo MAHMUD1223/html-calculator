@@ -1,5 +1,6 @@
 const display = document.querySelector('.up-display');
 const result = document.querySelector('.result');
+const historyBtn = document.querySelector(".history-btn");
 const vals = ['(', ')', '÷', '×', '-', '+', '.'];
 const symtoval = {
     'bracket-opening': '(',
@@ -16,6 +17,7 @@ var expression = [];
 var hasSymbol = true;
 var hasDot = false;
 var bracketCount = 0;
+var historyToggle = false;
 function clearOne() {
     if (expression[(expression.length - 1) ? (expression.length - 1):0].length === 1) {
         hasSymbol = false;
@@ -162,5 +164,23 @@ function calculate() {
             expressionStr += value;
         }
     });
-    result.innerHTML = eval(expressionStr) != undefined ? eval(expressionStr) : '';
+    let resultStr = eval(expressionStr) != undefined ? eval(expressionStr) : '';
+    result.innerHTML = resultStr;
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    history.push({
+        time : new Date().getTime(),
+        expr : expression.join(''),
+        result : resultStr
+    });
+    localStorage.setItem('history', JSON.stringify(history));
 }
+
+const consent = localStorage.getItem('cookieConsent');
+if (!consent) {
+    alert("Hello Traveler,\n This site uses cookies to enhance user experience and to analyze performance and traffic on our website.")
+    localStorage.setItem('cookieConsent', 'true');
+}
+
+historyBtn.addEventListener('click', () => {
+    alert("History");
+});

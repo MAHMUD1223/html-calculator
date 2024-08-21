@@ -4,13 +4,13 @@
     "description": "ZCalculator is a modern, sleek calculator application.",
     "icons": [
       {
-        "src": "/icons/icon-192x192.png",
-        "type": "image/png",
+        "src": "/zcalculator-icon.webp",
+        "type": "image/webp",
         "sizes": "192x192"
       },
       {
-        "src": "/icons/icon-512x512.png",
-        "type": "image/png",
+        "src": "/zcalculator-icon.webp",
+        "type": "image/webp",
         "sizes": "512x512"
       }
     ],
