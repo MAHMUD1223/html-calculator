@@ -133,21 +133,34 @@ function writeNumber(number) {
 }
 function updateDisplay() {
     display.innerHTML = expression.join('');
-    calculate();
+    calculate("internal");
     // alert(expression);
 }
-function calculate() {
+function calculate(callFrom) {
     result.style.color = "gray";
+    result.style.fontSize = "2.3dvw";
     let expressionConverter = {
         '×': '*',
         '÷': '/',
         '+': '+',
         '-': '-'
     }
-    while (bracketCount != 0) {
-        expression.push(')');
-        bracketCount--;
+    let modified = 0;
+    if (callFrom == "internal") {
+        let bracketCount2 = bracketCount;
+        while (bracketCount2 != 0) {
+            expression.push(')');
+            bracketCount2--;
+            modified++;
+        }
+    } else if (callFrom == "external") {
+        while (bracketCount != 0) {
+            expression.push(')');
+            bracketCount--;
+        }
         updateDisplay();
+        result.style.color = "darkcyan";
+        result.style.fontSize = "2.5dvw";
     }
     let expressionStr = "";
     expression.forEach( (value, index) => {
@@ -164,23 +177,28 @@ function calculate() {
             expressionStr += value;
         }
     });
+    if ( callFrom == "internal" ) {
+        expression.splice(expression.length - modified, modified);
+    }
     let resultStr = eval(expressionStr) != undefined ? eval(expressionStr) : '';
     result.innerHTML = resultStr;
-    let history = JSON.parse(localStorage.getItem('history')) || [];
-    history.push({
-        time : new Date().getTime(),
-        expr : expression.join(''),
-        result : resultStr
-    });
-    localStorage.setItem('history', JSON.stringify(history));
+    if (callFrom == "external") {
+        let history = JSON.parse(localStorage.getItem('history')) || [];
+        history.push({
+            time : new Date().getTime(),
+            expr : expression.join(''),
+            result : resultStr
+        });
+        localStorage.setItem('history', JSON.stringify(history));
+    }
 }
 
 const consent = localStorage.getItem('cookieConsent');
 if (!consent) {
-    alert("Hello Traveler,\n This site uses cookies to enhance user experience and to analyze performance and traffic on our website.")
+    alert("Hello Traveler,\n This site uses cookies to enhance user experience and to analyze performance and traffic on our website.");
     localStorage.setItem('cookieConsent', 'true');
 }
 
 historyBtn.addEventListener('click', () => {
-    alert("History");
+    alert("hello");
 });
