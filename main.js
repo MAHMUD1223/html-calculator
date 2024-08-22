@@ -200,5 +200,27 @@ if (!consent) {
 }
 
 historyBtn.addEventListener('click', () => {
-    alert("hello");
+    let historyDiv = document.querySelector(".history-div");
+    let pad = document.querySelector(".pad");
+    if (!historyToggle) {
+        historyToggle = true;
+        historyBtn.innerHTML = "Keypad";
+        historyDiv.style.display = "grid";
+        pad.style.display = "none";
+        let history = JSON.parse(localStorage.getItem('history')) || [];
+        let historyStr = "";
+        history.forEach( (value, index) => {
+            historyStr += ` <div class="history-item">
+                              <div class="history-time">${new Date(value.time).toLocaleString()}</div>
+                              <div class="history-expr">${value.expr}</div>
+                              <div class="history-result">${value.result}</div>
+                           </div>`;
+        });
+        alert(historyStr);
+    } else {
+        historyToggle = false;
+        historyBtn.innerHTML = "History";
+        historyDiv.style.display = "none";
+        pad.style.display = "grid";
+    }
 });

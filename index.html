@@ -87,6 +87,19 @@
         </div>
 
 
+        <div class="history-div">
+            <div class="history-elm">
+                <div class="history-items"></div>
+                <button onclick="localStorage.setItem('history', []);">Clear History</button>
+            </div>
+            <div class="history-pad">
+                <button class="pad-column symbol" >&#247;</button>
+                <button class="pad-column symbol" >&times;</button>
+                <button class="pad-column symbol" >&minus;</button>
+                <button class="pad-column symbol" >&plus;</button>
+                <button class="pad-column symbol equals" >&equals;</button>
+            </div>
+        </div>
         <div class="pad">
             <div class="pad-row">
                 <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol">C</button>
