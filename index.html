@@ -64,15 +64,16 @@
             
             <h4>Calculator</h4>
             
-            <div>
+            <div class="sidebar">
                 <select name="theme" id="theme">
                     <option value="normal">Normal</option>
                     <option value="95">95</option>
                 </select>
+                <div class="learn-more pad-column" onclick="showPopup()">?</div>
             </div>
         </nav>
 
-
+        
         <div class="display">
             <div class="up-display"></div>
             <div class="result"></div>
@@ -80,8 +81,8 @@
 
 
         <div class="pre-pad">
-            <div class="history-btn">History</div>
-            <div onclick="clearHistory()"></div>
+            <div class="history-btn pad-column" >History</div>
+            <div></div>
             <button onclick="clearOne()" class="symbol pad-column">&#9003;</button>
         </div>
 
@@ -99,41 +100,84 @@
                 <button onclick="calculate('external')" value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
         </div>
+
+
         <div class="pad">
+
             <div class="pad-row">
                 <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol clearScreen">C</button>
                 <button onclick="writeBracket()" value="bracket" id="brackets" class="pad-column symbol">&#40;&#41;</button>
                 <button onclick="writeSymbol(this.id)" value="percent" id="percent" class="pad-column symbol">&#37;</button>
                 <button onclick="writeSymbol(this.id)" value="division" id="division" class="pad-column symbol">&#247;</button>
             </div>
+
             <div class="pad-row">
                 <button onclick="writeNumber(this.value)" value="7" id="seven" class="pad-column">7</button>
                 <button onclick="writeNumber(this.value)" value="8" id="eight" class="pad-column">8</button>
                 <button onclick="writeNumber(this.value)" value="9" id="nine" class="pad-column">9</button>
                 <button onclick="writeSymbol(this.id)" value="multiplication" id="multiplication" class="pad-column symbol">&times;</button>
             </div>
+
             <div class="pad-row">
                 <button onclick="writeNumber(this.value)" value="4" id="four" class="pad-column">4</button>
                 <button onclick="writeNumber(this.value)" value="5" id="five" class="pad-column">5</button>
                 <button onclick="writeNumber(this.value)" value="6" id="six" class="pad-column">6</button>
                 <button onclick="writeSymbol(this.id)" id="minus" value="minus" class="pad-column symbol">&minus;</button>
             </div>
+
             <div class="pad-row">
                 <button onclick="writeNumber(this.value)" value="1" id="one" class="pad-column">1</button>
                 <button onclick="writeNumber(this.value)" value="2" id="two" class="pad-column">2</button>
                 <button onclick="writeNumber(this.value)" value="3" id="three" class="pad-column">3</button>
                 <button onclick="writeSymbol(this.id)" value="plus" id="plus" class="pad-column symbol">&plus;</button>
             </div>
+
             <div class="pad-row">
                 <button onclick="writeSymbolPoint(this.id)" value="point" id="point" class="pad-column">&bull;</button>
                 <button onclick="writeNumber(this.value)" value="0" id="zero" class="pad-column">0</button>
                 <button onclick="writePlusMinus()" value="pre-plus-minus" id="pre-plus-minus" class="pad-column">&plus; &sol; &minus;</button>
                 <button onclick="calculate('external')" value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
+
         </div>
-
-
     </main>
+
+    <div id="popup-window">
+        <h1>
+            Help &amp; About
+            <button id="close-button" class="pad-column" onclick="closePopup()">&times;</button>
+        </h1>
+        <p>
+            ZCalculator is a modern, sleek calculator application built using only HTML, CSS, and JavaScript, offering a user-friendly interface and functionality.
+            <br>
+            <br>
+            <strong>Features:</strong>
+            <ul>
+                <li>Basic arithmetic operations</li>
+                <li>Percentage calculation</li>
+                <li>Bracket support</li>
+                <li>History of calculations</li>
+                <li>Theme selection</li>
+            </ul>
+            <br>
+            <strong>How to use:</strong>
+            <ul>
+                <li>Click on the buttons to perform calculations</li>
+                <li>Click on the history button to view the history of calculations</li>
+                <li>Click on the clear button to clear the screen</li>
+                <li>Click on the clear history button to clear the history</li>
+                <li>Click on the theme dropdown to change the theme</li>
+            </ul>
+            <br>
+            <strong>Author:</strong>
+            <br>
+            <a href="//github.com/MAHMUD1223" target="_blank">Mahmud Hasan</a>
+            <br>
+            Copyright &copy; 2024
+            <a href="./LICENSE">LICENSE</a>
+        </p>
+    </div>
+
     <script src="main.js" defer></script>
 </body>
 </html>

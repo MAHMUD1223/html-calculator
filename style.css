@@ -14,6 +14,7 @@ main {
     position: fixed;
     display: grid;
     grid-template-rows: 8% 27% 10% 65%;
+    transition: all 3s ease;
 }
 /* nav element designs */
 main nav {
@@ -32,6 +33,20 @@ main nav .nav-img{
     height: 100%;
     width: 100%;
     border-radius: 25%;
+}
+main nav .sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1dvw;
+    font-weight: bold;    
+    cursor: pointer;
+}
+main nav .sidebar .learn-more {
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 0 1dvw 0 1dvw;
+    cursor: help;
 }
 /* calculator display designs */
 main .display {
@@ -71,7 +86,7 @@ main .pad-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
-main .pad-column, main .pre-pad > div {
+main .pad-column {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,7 +97,7 @@ main .pad-column, main .pre-pad > div {
     transition: all 0.3s ease;
 }
 
-main .pad-column:active, main .pre-pad > div:active {
+main .pad-column:active {
     background-color: lightgray;
     transform: translateY(4px);
     box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
@@ -151,4 +166,43 @@ main .history-div .history-elm .history-items .history-item .history-result {
     font-size: 3dvw;
     font-weight: bold;
     color: cyan;
+}
+
+/* creating a pop up window for help */
+#popup-window {
+    position: fixed;
+    width: 50dvw;
+    height: 90dvh;
+    background: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    padding: 4dvw;
+    display: none;
+    overflow: scroll;
+}
+
+#popup-window h1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: darkcyan;
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+#popup-window h1 #close-button {
+    position: absolute;
+    right: 2vw;
+    top: 1vh;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: darkcyan;
+    cursor: pointer;
 }

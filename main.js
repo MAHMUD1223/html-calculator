@@ -253,4 +253,15 @@ function clearHistory() {
     historyBtn.click();
 }
 
+function showPopup() {
+    let popup = document.querySelector("#popup-window");
+    popup.style.display = "block";
+    document.querySelector("main").style.filter = "blur(5px)";
+}
+function closePopup() {
+    let popup = document.querySelector("#popup-window");
+    popup.style.display = "none";
+    document.querySelector("main").style.filter = "none";
+}
+
 // completed on August 8,2024 at 20:02 by MAHMUD1223
