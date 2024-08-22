@@ -18,6 +18,8 @@ var hasSymbol = true;
 var hasDot = false;
 var bracketCount = 0;
 var historyToggle = false;
+
+// clears one value from display
 function clearOne() {
     if (expression[(expression.length - 1) ? (expression.length - 1):0].length === 1) {
         hasSymbol = false;
@@ -51,6 +53,8 @@ function clearOne() {
     }
     updateDisplay();
 }
+
+// clears the whole display
 function clearScreen() {
     expression = [];
     result.innerHTML = '';
@@ -59,6 +63,8 @@ function clearScreen() {
     bracketCount = 0;
     updateDisplay();
 }
+
+// writes the symbol to the display
 function writeSymbol(symbol) {
     if (!hasSymbol && symbol == "percent") {
         expression.push(symtoval[symbol]);
@@ -74,6 +80,8 @@ function writeSymbol(symbol) {
     }
     updateDisplay();
 }
+
+// writes the bracket to the display and is automatically closed if the bracket is opened
 function writeBracket() {
     if (hasSymbol) {
         expression.push('(');
@@ -90,6 +98,8 @@ function writeBracket() {
     }
     updateDisplay();
 }
+
+// writes the point to the display and ensures that only one point is written for each number
 function writeSymbolPoint(symbol) {
     if (!hasDot) {
         expression[expression.length - 1] += symtoval[symbol];
@@ -97,6 +107,8 @@ function writeSymbolPoint(symbol) {
     }
     updateDisplay();
 }
+
+// writes the plus or minus to the display
 function writePlusMinus() {
     if (expression.length == 0) {
         return;
@@ -112,6 +124,8 @@ function writePlusMinus() {
     }
     updateDisplay();
 }
+
+// writes the number to the display
 function writeNumber(number) {
     if (expression[expression.length - 1] == '%') {
         expression.splice(expression.length , 0, symtoval['multiplication'], number);
@@ -131,11 +145,14 @@ function writeNumber(number) {
     hasSymbol = false;
     updateDisplay();
 }
+
+// updates the display
 function updateDisplay() {
     display.innerHTML = expression.join('');
     calculate("internal");
-    // alert(expression);
 }
+
+// calculates the expression and updates the history
 function calculate(callFrom) {
     result.style.color = "gray";
     result.style.fontSize = "2.3dvw";
@@ -195,12 +212,14 @@ function calculate(callFrom) {
     }
 }
 
+// notify user about cookies
 const consent = localStorage.getItem('cookieConsent');
 if (!consent) {
     alert("Hello Traveler,\n This site uses cookies to enhance user experience and to analyze performance and traffic on our website.");
     localStorage.setItem('cookieConsent', 'true');
 }
 
+// event listeners for showing the history
 historyBtn.addEventListener('click', () => {
     let historyDiv = document.querySelector(".history-div");
     let pad = document.querySelector(".pad");
@@ -226,8 +245,12 @@ historyBtn.addEventListener('click', () => {
         pad.style.display = "grid";
     }
 });
+
+// clears the history
 function clearHistory() {
     localStorage.removeItem('history');
     let historyBtn = document.querySelector(".history-btn");
     historyBtn.click();
 }
+
+// completed on August 8,2024 at 20:02 by MAHMUD1223
