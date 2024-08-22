@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#000">
-    <!-- <meta name="viewport" content="width=1024, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=0"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ZCalculator is a modern, sleek calculator application built using only HTML, CSS, and JavaScript, offering a user-friendly interface and functionality.">
     <meta name="keywords" content="calculator, web calculator, online calculator, HTML calculator, CSS calculator, JavaScript calculator, ZCalculator, modern calculator">
@@ -93,16 +92,16 @@
                 <button onclick="clearHistory()" class="pad-column">Clear History</button>
             </div>
             <div class="history-pad">
-                <button class="pad-column symbol" >&#247;</button>
-                <button class="pad-column symbol" >&times;</button>
-                <button class="pad-column symbol" >&minus;</button>
-                <button class="pad-column symbol" >&plus;</button>
-                <button class="pad-column symbol equals" >&equals;</button>
+                <button onclick="writeSymbol(this.id)" value="division" id="division" class="pad-column symbol">&#247;</button>
+                <button onclick="writeSymbol(this.id)" value="multiplication" id="multiplication" class="pad-column symbol">&times;</button>
+                <button onclick="writeSymbol(this.id)" id="minus" value="minus" class="pad-column symbol">&minus;</button>
+                <button onclick="writeSymbol(this.id)" value="plus" id="plus" class="pad-column symbol">&plus;</button>
+                <button onclick="calculate('external')" value="equals" id="equals" class="pad-column equals">&equals;</button>
             </div>
         </div>
         <div class="pad">
             <div class="pad-row">
-                <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol">C</button>
+                <button onclick="clearScreen()" value="clear" id="clear" class="pad-column symbol clearScreen">C</button>
                 <button onclick="writeBracket()" value="bracket" id="brackets" class="pad-column symbol">&#40;&#41;</button>
                 <button onclick="writeSymbol(this.id)" value="percent" id="percent" class="pad-column symbol">&#37;</button>
                 <button onclick="writeSymbol(this.id)" value="division" id="division" class="pad-column symbol">&#247;</button>

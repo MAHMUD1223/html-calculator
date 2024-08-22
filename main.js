@@ -160,7 +160,7 @@ function calculate(callFrom) {
         }
         updateDisplay();
         result.style.color = "darkcyan";
-        result.style.fontSize = "2.5dvw";
+        result.style.fontSize = "3dvw";
     }
     let expressionStr = "";
     expression.forEach( (value, index) => {
@@ -182,7 +182,7 @@ function calculate(callFrom) {
     }
     let resultStr = eval(expressionStr) != undefined ? eval(expressionStr) : '';
     result.innerHTML = resultStr;
-    if (callFrom == "external") {
+    if (callFrom == "external" && resultStr != '' && expression.length > 1) {
         let history = JSON.parse(localStorage.getItem('history')) || [];
         history.push({
             time : new Date().getTime(),
@@ -190,6 +190,8 @@ function calculate(callFrom) {
             result : resultStr
         });
         localStorage.setItem('history', JSON.stringify(history));
+        expression = [resultStr];
+        hasDot = `${resultStr}`.includes('.');
     }
 }
 

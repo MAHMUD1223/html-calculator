@@ -14,8 +14,8 @@ main {
     position: fixed;
     display: grid;
     grid-template-rows: 8% 27% 10% 65%;
-    /* overflow: scroll; */
 }
+/* nav element designs */
 main nav {
     display: flex;
     justify-content: space-between;
@@ -33,6 +33,7 @@ main nav .nav-img{
     width: 100%;
     border-radius: 25%;
 }
+/* calculator display designs */
 main .display {
     display: grid;
     grid-template-rows: 75% 25%;
@@ -52,6 +53,7 @@ main .result {
     color: darkcyan;
     padding-bottom: 3dvw;
 }
+/* calculator number pad designs */
 main .pre-pad {
     display: grid;
     grid-template-columns: 1fr 50% 1fr;
@@ -64,58 +66,6 @@ main #clear {
 main .pad {
     display: grid;
     grid-template-rows: repeat(5, 1fr);
-}
-main .history-div {
-    display: none;
-    grid-template-columns: 75% 1fr;
-    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-    transition: all 0.3s ease;
-}
-main .history-div .history-pad {
-    display: grid;
-    grid-template-rows: repeat(5, 1fr);
-}
-main .history-div .history-elm {
-    display: grid;
-    grid-template-rows: 90% 1fr;
-}
-
- /* need to fix the style when history gets out of the range */
-main .history-div .history-elm .history-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    font-size: 3dvw;
-    font-weight: bold;
-    overflow: scroll;
-}
-main .history-div .history-elm .history-items .history-item {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-    font-size: 2.5dvw;
-    font-weight: bold;
-    padding: 1dvw;
-    border-top: 1px solid lightgray;
-}
-main .history-div .history-elm .history-items .history-item .history-time {
-    font-size: 1.5dvw;
-    font-weight: light;
-    color: lightgray;
-    padding-right: 80%;
-}
-main .history-div .history-elm .history-items .history-item .history-expr {
-    font-size: 2.5dvw;
-    font-weight: bold;
-    color: gray;
-}
-main .history-div .history-elm .history-items .history-item .history-result {
-    font-size: 2.5dvw;
-    font-weight: bold;
-    color: cyan;
 }
 main .pad-row {
     display: grid;
@@ -148,4 +98,57 @@ main .symbol {
 main .equals {
     background-color: darkcyan;
     color: white;
+}
+/* hidden history pad designs */
+main .history-div {
+    display: none;
+    grid-template-columns: 75% 1fr;
+    box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    transition: all 0.3s ease;
+}
+main .history-div .history-pad {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+}
+main .history-div .history-elm {
+    display: grid;
+    grid-template-rows: 90% 1fr;
+    overflow: scroll;
+}
+main .history-div .history-elm .history-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 3dvw;
+    font-weight: bold;
+    max-height: 100dvh;
+    overflow-y: scroll;
+}
+main .history-div .history-elm .history-items .history-item {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 2.5dvw;
+    font-weight: bold;
+    padding: 1dvw;
+    border-top: 1px solid lightgray;
+}
+main .history-div .history-elm .history-items .history-item .history-time {
+    font-size: 1.5dvw;
+    font-weight: light;
+    color: lightgray;
+    padding-right: 80%;
+}
+main .history-div .history-elm .history-items .history-item .history-expr {
+    font-size: 2.5dvw;
+    font-weight: bold;
+    color: gray;
+}
+main .history-div .history-elm .history-items .history-item .history-result {
+    font-size: 3dvw;
+    font-weight: bold;
+    color: cyan;
 }
