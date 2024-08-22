@@ -210,13 +210,13 @@ historyBtn.addEventListener('click', () => {
         let history = JSON.parse(localStorage.getItem('history')) || [];
         let historyStr = "";
         history.forEach( (value, index) => {
-            historyStr += ` <div class="history-item">
+            historyStr += ` <div class="history-item" align="left">
                               <div class="history-time">${new Date(value.time).toLocaleString()}</div>
                               <div class="history-expr">${value.expr}</div>
-                              <div class="history-result">${value.result}</div>
+                              <div class="history-result">&equals; ${value.result}</div>
                            </div>`;
         });
-        alert(historyStr);
+        document.querySelector(".history-items").innerHTML = historyStr;
     } else {
         historyToggle = false;
         historyBtn.innerHTML = "History";
@@ -224,3 +224,8 @@ historyBtn.addEventListener('click', () => {
         pad.style.display = "grid";
     }
 });
+function clearHistory() {
+    localStorage.removeItem('history');
+    let historyBtn = document.querySelector(".history-btn");
+    historyBtn.click();
+}

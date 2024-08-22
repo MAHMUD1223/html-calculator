@@ -82,7 +82,7 @@
 
         <div class="pre-pad">
             <div class="history-btn">History</div>
-            <div></div>
+            <div onclick="clearHistory()"></div>
             <button onclick="clearOne()" class="symbol pad-column">&#9003;</button>
         </div>
 
@@ -90,7 +90,7 @@
         <div class="history-div">
             <div class="history-elm">
                 <div class="history-items"></div>
-                <button onclick="localStorage.setItem('history', []);">Clear History</button>
+                <button onclick="clearHistory()" class="pad-column">Clear History</button>
             </div>
             <div class="history-pad">
                 <button class="pad-column symbol" >&#247;</button>

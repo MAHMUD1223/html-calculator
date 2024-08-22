@@ -79,6 +79,44 @@ main .history-div .history-elm {
     display: grid;
     grid-template-rows: 90% 1fr;
 }
+
+ /* need to fix the style when history gets out of the range */
+main .history-div .history-elm .history-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 3dvw;
+    font-weight: bold;
+    overflow: scroll;
+}
+main .history-div .history-elm .history-items .history-item {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 2.5dvw;
+    font-weight: bold;
+    padding: 1dvw;
+    border-top: 1px solid lightgray;
+}
+main .history-div .history-elm .history-items .history-item .history-time {
+    font-size: 1.5dvw;
+    font-weight: light;
+    color: lightgray;
+    padding-right: 80%;
+}
+main .history-div .history-elm .history-items .history-item .history-expr {
+    font-size: 2.5dvw;
+    font-weight: bold;
+    color: gray;
+}
+main .history-div .history-elm .history-items .history-item .history-result {
+    font-size: 2.5dvw;
+    font-weight: bold;
+    color: cyan;
+}
 main .pad-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -103,7 +141,6 @@ main .pad-column:active, main .pre-pad > div:active {
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 }
 
-  }
 main .symbol {  
     font-size: 3dvw;
     color: darkcyan;
