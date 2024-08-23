@@ -264,4 +264,17 @@ function closePopup() {
     document.querySelector("main").style.filter = "none";
 }
 
+
+// changing Theme of the calculator
+function changePage(theme) {
+    switch (theme) {
+        case "modern":
+            window.location.href = "index.html";
+            break;
+        case "98":
+            window.location.href = "index-98.html";
+            break;
+    }
+}
+
 // completed on August 8,2024 at 20:02 by MAHMUD1223

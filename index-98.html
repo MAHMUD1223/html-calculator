@@ -29,6 +29,7 @@
     <link rel="icon" type="image/webp" href="./zcalculator-img.webp">
     <link rel="apple-touch-icon" href="./zcalculator-img.webp">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/98.css">
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -143,10 +144,15 @@
     </main>
 
     <div id="popup-window">
-        <h1>
-            Help &amp; About
-            <button id="close-button" class="pad-column" onclick="closePopup()">&times;</button>
-        </h1>
+        <div class="title-bar">
+            <div class="title-bar-text">
+                <h1>Help &amp; About</h1>
+            </div>
+            <div class="title-bar-controls">
+            <button id="close-button" class="pad-column" onclick="closePopup()" aria-label="Close">&times;</button>
+            </div>
+          </div>
+          <br>
         <p>
             ZCalculator is a modern, sleek calculator application built using only HTML, CSS, and JavaScript, offering a user-friendly interface and functionality.
             <br>
